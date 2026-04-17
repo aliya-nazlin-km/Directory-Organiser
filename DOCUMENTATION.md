@@ -1,4 +1,4 @@
-# File Organizer (v1) — Documentation
+# File Organizer (v2) — Documentation
 
 ## Table of Contents
 
@@ -9,44 +9,40 @@
 
    * [DIRECTORIES](#directories)
    * [get_directory()](#get_directorysuffix)
+   * [get_unique_name()](#get_unique_namepath)
    * [organise_directory()](#organise_directorybase_path)
 5. [Design Principles (SOLID)](#design-principles-solid)
 6. [Key Design Decisions](#key-design-decisions)
-7. [Limitations (v1)](#limitations-v1)
-8. [Future Enhancements](#future-enhancements)
-9. [Conclusion](#conclusion)
+7. [Improvements from v1](#improvements-from-v1)
+8. [Limitations](#limitations)
+9. [Future Enhancements](#future-enhancements)
+10. [Conclusion](#conclusion)
 
 ---
 
 ## Overview
 
-The File Organizer is a Python-based utility script that organizes files in a user-specified directory into categorized folders based on their file extensions.
-
-The goal of this project is to automate manual file sorting and demonstrate clean, maintainable code design.
+The File Organizer is a Python-based utility script that organizes files into categorized folders based on their file extensions. Version 2 improves reliability by introducing duplicate file handling.
 
 ---
 
 ## Problem Statement
 
-Directories such as Downloads often become cluttered with various file types. Manually organizing these files is repetitive and inefficient.
+Managing unorganized directories can be inefficient. Additionally, moving files into categorized folders may lead to filename conflicts when duplicates exist.
 
-This script addresses the problem by automatically:
-
-* Identifying file types
-* Categorizing files
-* Moving them into appropriate directories
+This version addresses both problems by organizing files and safely handling duplicates.
 
 ---
 
 ## How It Works
 
-1. Accepts a directory path from the user
-2. Iterates through all items in the directory
-3. Skips subdirectories
-4. Extracts file extension
-5. Matches extension with predefined categories
-6. Creates category folders if they do not exist
-7. Moves files into their respective folders
+1. Accepts a directory path
+2. Iterates through all files
+3. Determines file category
+4. Creates folders if needed
+5. Checks for duplicate filenames
+6. Generates unique filenames when required
+7. Moves files safely
 
 ---
 
@@ -54,13 +50,23 @@ This script addresses the problem by automatically:
 
 ### DIRECTORIES
 
-A dictionary mapping folder names to lists of file extensions.
+Defines mapping between file extensions and folder categories.
 
 ---
 
 ### get_directory(suffix)
 
-Determines the appropriate directory for a given file extension.
+Returns the appropriate directory name based on file extension.
+
+---
+
+### get_unique_name(path)
+
+Handles duplicate file names.
+
+* Checks if a file already exists in destination
+* Appends `(1), (2), ...` until a unique name is found
+* Returns a safe file path
 
 ---
 
@@ -68,9 +74,10 @@ Determines the appropriate directory for a given file extension.
 
 Main function responsible for:
 
-* Validating input path
+* Path validation
 * Iterating through files
 * Creating directories
+* Handling duplicates
 * Moving files
 
 ---
@@ -79,58 +86,63 @@ Main function responsible for:
 
 ### Single Responsibility Principle (SRP)
 
-Each function has a single responsibility:
-
-* get_directory(): Determines file category
-* organise_directory(): Handles file organization
+* `get_directory()` → categorization
+* `get_unique_name()` → duplicate handling
+* `organise_directory()` → coordination
 
 ---
 
 ### Open/Closed Principle (OCP)
 
-New file types can be supported by updating the DIRECTORIES dictionary without changing existing logic.
+New file types can be added by updating the DIRECTORIES dictionary without modifying logic.
 
 ---
 
 ### Liskov Substitution Principle (LSP)
 
-Functions behave consistently for all valid inputs.
+Functions behave consistently for valid inputs.
 
 ---
 
 ### Interface Segregation Principle (ISP)
 
-Functions only depend on the inputs they require.
+Functions accept only necessary inputs.
 
 ---
 
 ### Dependency Inversion Principle (DIP)
 
-The script uses pathlib, avoiding platform-specific implementations.
+Relies on pathlib abstraction instead of OS-specific file handling.
 
 ---
 
 ## Key Design Decisions
 
-* Used pathlib for cleaner file handling
-* Used dictionary-based categorization
-* Ignored subdirectories for simplicity
-* Used extension-based classification
+* Introduced a dedicated duplicate handling function
+* Used iterative approach for generating unique filenames
+* Maintained extension-based classification for simplicity
+* Preserved modular function design
 
 ---
 
-## Limitations (v1)
+## Improvements from v1
 
-* Does not handle duplicate filenames
+* Added duplicate file handling
+* Prevents overwriting and runtime errors
+* Enables safe repeated execution
+
+---
+
+## Limitations
+
 * Does not process subdirectories
-* Categorization is based only on file extensions
-* No logging or detailed error handling
+* Classification is extension-based only
+* No logging or error tracking
 
 ---
 
 ## Future Enhancements
 
-* Duplicate file handling
 * Recursive directory traversal
 * CLI argument support
 * GUI-based interface
@@ -139,4 +151,4 @@ The script uses pathlib, avoiding platform-specific implementations.
 
 ## Conclusion
 
-This project demonstrates a clean and modular approach to solving file organization with a focus on simplicity and maintainability.
+Version 2 enhances the reliability of the file organizer by introducing duplicate handling while maintaining simplicity, modularity, and clean design principles.
