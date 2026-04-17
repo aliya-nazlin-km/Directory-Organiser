@@ -1,12 +1,12 @@
-# 📂 File Organizer (v1)
+# 📂 File Organizer (v2)
 
-A simple Python script to automatically organize files in a directory into categorized folders based on their file extensions.
+A Python utility script to organize files in a directory into categorized folders based on file extensions. Version 2 introduces safe duplicate file handling to prevent overwriting.
 
 ---
 
 ## 🚀 Features
 
-* Organizes files into categories:
+* 📁 Organizes files into categories:
 
   * Documents
   * Images
@@ -18,9 +18,10 @@ A simple Python script to automatically organize files in a directory into categ
   * Fonts
   * Spreadsheets
   * Presentations
-* Automatically creates folders if they do not exist
-* Moves files into their respective directories
-* Simple and beginner-friendly implementation
+* 📦 Automatically creates folders if they do not exist
+* 🔄 Moves files into their respective directories
+* 🛡️ Handles duplicate filenames safely (e.g., `file (1).txt`)
+* ✨ Simple and maintainable implementation
 
 ---
 
@@ -31,29 +32,26 @@ A simple Python script to automatically organize files in a directory into categ
 
 ---
 
-## 📁 Folder Structure (After Running)
+## 📸 Example
 
-Example:
-
-Before:
+### Before
 
 ```bash
 Downloads/
-    file.pdf
+    file.txt
+    file.txt
     image.jpg
-    song.mp3
 ```
 
-After:
+### After
 
 ```bash
 Downloads/
     DOCUMENTS/
-        file.pdf
+        file.txt
+        file (1).txt
     IMAGES/
         image.jpg
-    AUDIOS/
-        song.mp3
 ```
 
 ---
@@ -66,7 +64,7 @@ Downloads/
 git clone https://github.com/aliya-nazlin-km/file-organizer.git
 ```
 
-2. Navigate to the project folder:
+2. Navigate to the project directory:
 
 ```bash
 cd file-organizer
@@ -78,7 +76,7 @@ cd file-organizer
 python organizer.py
 ```
 
-4. Enter the directory path when prompted:
+4. Enter the directory path:
 
 ```bash
 Enter the directory path to organize: D:\Downloads
@@ -86,43 +84,41 @@ Enter the directory path to organize: D:\Downloads
 
 ---
 
-## 📌 How It Works
+## ⚙️ How It Works
 
-1. Takes a directory path as input
-2. Iterates through all files in the directory
+1. Accepts a directory path
+2. Iterates through files
 3. Identifies file type using extension
-4. Matches it with predefined categories
-5. Creates category folders if needed
-6. Moves files into respective folders
+4. Maps file to a category
+5. Creates folders if required
+6. Checks for duplicate filenames
+7. Renames duplicates safely
+8. Moves files into respective folders
 
 ---
 
-## ⚠️ Limitations (v1)
+## ⚠️ Limitations
 
-* Does not handle duplicate filenames (may overwrite or fail)
 * Does not process subdirectories
-* Only works on top-level files
-* Categorization is based only on file extensions
+* No logging or reporting
 
 ---
 
-## 🔮 Future Improvements
+## 🔮 Future Enhancements
 
-* Duplicate file handling
-* Recursive directory support
-* CLI arguments support
-* Logging and reporting
-* GUI version
+* 🔁 Recursive directory traversal
+* 🖥️ CLI argument support
+* 🪟 GUI-based interface
 
 ---
 
 ## 👩‍💻 Author
 
 **Aliya Nazlin KM**
-GitHub: https://github.com/aliya-nazlin-km
+🔗 https://github.com/aliya-nazlin-km
 
 ---
 
 ## 📜 License
 
-This project is open-source and available under the MIT License.
+This project is licensed under the MIT License.
